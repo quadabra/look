@@ -1,2 +1,35 @@
 <some-1></some-1>
-Content
+<div class="content" ng-controller="ContentViewCtrl">
+  <div class="content__filter">
+    <form ng-submit="submit($event)">
+      <div>
+        <label for="sort">Order</label>
+        <select name="sort" id="sort" ng-model="model.sort">
+          <option value="title">Title</option>
+          <option value="date">Date</option>
+        </select>
+      </div>
+      <div>
+        <label for="checkbox">Date</label>
+        <input type="checkbox" id="checkbox" ng-model="model.hideTime">
+      </div>
+      <div>
+        <label for="search">Search</label>
+        <input type="text" id="search" ng-model="model.searchString">
+      </div>
+    </form>
+  </div>
+  <ul class="content__list">
+    <li class="content__list-item" ng-repeat="item in getItemList()" ng-click="selectItem($index)">
+      <div>Title: {{ item.title }}</div>
+      <div>Date: {{ item.date | date: model.hideTime ? 'dd-MM-yyyy' : 'dd-MM-yyyy HH:mm' }}</div>
+    </li>
+  </ul>
+  <div class="content__form">
+    <form ng-submit="addItem()">
+      <label for="text">New Title</label>
+      <input type="text" id="text" ng-model="model.newTitle">
+      <button type="submit">Add</button>
+    </form>
+  </div>
+</div>

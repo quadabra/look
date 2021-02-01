@@ -1,7 +1,7 @@
 function makeDataId() {
   return `${Date.now()}:${Math.random().toString().substr(2)}`;
 }
-function makeDefaulData() {
+function makeDefaultData() {
   return [
     {
       id: makeDataId(),

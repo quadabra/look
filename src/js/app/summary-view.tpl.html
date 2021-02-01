@@ -1,1 +1,9 @@
-Summary
+<div class="summary" ng-controller="SummaryViewCtrl">
+  <div class="summary__last-item">
+    <span>Last:  {{ getLastValue().title }}</span>
+    <span>Tags:</span>
+    <div>
+      <span>{{ getTagsList().join(', ') }}</span>
+    </div>
+  </div>
+</div>

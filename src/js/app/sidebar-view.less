@@ -1,4 +1,5 @@
 @import "variables";
+@import "mixins";
 
 sidebar-view {
   @border-size: 1px;
@@ -7,4 +8,18 @@ sidebar-view {
   width: @sidebar-width + @border-size;
   border-left: @border-size solid @c-gray;
   box-sizing: border-box;
+}
+
+.sidebar {
+  &__title {
+  }
+  &__tag{
+    &-list {
+      list-style: none;
+      padding: 0;
+    }
+    &-item {
+      .border-bottom();
+    }
+  }
 }

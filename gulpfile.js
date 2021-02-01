@@ -1,5 +1,7 @@
 const gulp = require("gulp");
 const path = require("path");
+const browserSync = require('browser-sync').create();
+const historyApiFallback = require('connect-history-api-fallback');
 
 gulp.task("clean", () =>
   gulp.src("./dist", { read: false, allowEmpty: true, })
@@ -22,6 +24,7 @@ gulp.task("templates", () =>
     }))
     .pipe(require("gulp-concat")("templates.js"))
     .pipe(gulp.dest("./dist/js/"))
+    .pipe(browserSync.stream())
 );
 
 gulp.task("main", () =>
@@ -42,6 +45,7 @@ gulp.task("style", () =>
     }))
     .pipe(require("gulp-concat")("style.css"))
     .pipe(gulp.dest("./dist/style/"))
+    .pipe(browserSync.stream())
 );
 
 gulp.task("index", () =>
@@ -54,6 +58,22 @@ gulp.task("assets", () =>
     .pipe(gulp.dest("./dist/assets/"))
 );
 
+gulp.task('browser', function() {
+  browserSync.init({
+    server: 'dist/',
+    port: 3000,
+    middleware: [historyApiFallback()]
+  });
+  // watch and rebuild .js files
+  gulp.watch("./src/js/**/*.js", gulp.parallel('main')).on('change', browserSync.reload);
+
+  // watch and rebuild .css files
+  gulp.watch(["./src/less/style.less", "./src/js/**/*.less"], gulp.parallel('style')).on('change', browserSync.reload);
+
+  // Reload when html changes
+  gulp.watch("./src/js/**/*.tpl.html", gulp.parallel('templates')).on('change', browserSync.reload);
+})
+
 gulp.task("default", gulp.series(
   "clean",
   gulp.parallel(
@@ -63,5 +83,11 @@ gulp.task("default", gulp.series(
     "style",
     "index",
     "assets",
-  ),
+  )
 ));
+
+gulp.task('serve', gulp.series('default', 'browser'));
+
+
+
+

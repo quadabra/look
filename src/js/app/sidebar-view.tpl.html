@@ -1,1 +1,19 @@
-Sidebar
+<div ng-controller=SidebarViewCtrl class="sidebar">
+  <div class="sidebar__title">
+  <span>Selected:
+  <span>{{ selectItem().title }}</span></span>
+  </div>
+  <div ng-if="(!!selectItem())">
+    <ul class="sidebar__tag-list">
+      <li ng-repeat="tag in selectItem().tags" class="sidebar__tag-item">
+        {{ tag }}
+        <button ng-click="removeTag($index)">x</button>
+      </li>
+    </ul>
+    <form ng-submit="addTag()">
+      <label for="tagText">New tag: </label>
+      <input type="text" id="tagText" ng-model="model.tagName">
+      <button type="submit">Add</button>
+    </form>
+  </div>
+</div>

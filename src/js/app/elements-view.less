@@ -1,10 +1,50 @@
 @import "variables";
+@import "mixins";
 
 elements-view {
   display: block;
 }
 
-.elements-view__ctrls {
-  padding: 10px;
-  border-bottom: 1px solid @c-gray;
+.elements-view {
+  &__ctrls {
+    padding: 10px;
+    border-bottom: 1px solid @c-gray;
+  }
+  &__button{
+    .button-reset();
+    margin: 24px;
+    color: @c-dark;
+    height: 40px;
+    border-radius: 5px;
+    width: 100%;
+    border: 2px solid @c-dark;
+    font-size: 16px;
+    text-transform: uppercase;
+    transition-duration: .15s;
+    &:hover {
+      border-color: @c-gray;
+      background-color: @c-gray-light;
+      cursor: pointer;
+    }
+    &-container {
+      box-sizing: border-box;
+      width: 100%;
+      display: flex;
+      align-items: stretch;
+      border-bottom: 1px solid @c-gray;
+    }
+  }
+  &__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    &-item {
+      padding: 5px 24px;
+      border-bottom: 1px solid @c-gray;
+      &:hover {
+        background-color: @c-gray-light;
+        transition-duration: .15s;
+      }
+    }
+  }
 }
